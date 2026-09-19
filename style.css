@@ -243,3 +243,43 @@ p {
     border-radius: 0.125rem;
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
+
+.hero {
+    position: relative;
+    height: calc(100vh - 5.25rem);
+    min-height: 40rem;
+    display: flex;
+    align-items: center;
+    scroll-margin-top: 6rem;
+    background:
+            linear-gradient(180deg, rgba(26, 18, 32, 0.28) 0%, rgba(26, 18, 32, 0.55) 100%),
+            url("../rsschool-landing-page/assets/images/hero-lavender.jpg") center / cover no-repeat;
+}
+
+.hero-content {
+    padding: 3rem;
+    border-radius: 1.75rem;
+    background: rgba(26, 18, 32, 0.42);
+    backdrop-filter: blur(0.625rem);
+    color: #fff;
+}
+
+.hero h1 {
+    font-family: "Playfair Display", "Times New Roman", serif;
+    font-size: clamp(2.25rem, 5vw, 4rem);
+    font-weight: 600;
+    line-height: 1.15;
+}
+
+.hero-lead {
+    margin: 1.125rem 0 0.75rem;
+    font-size: clamp(1.125rem, 2vw, 1.375rem);
+    font-weight: 500;
+}
+
+.hero-text {
+    max-width: 35rem;
+    margin-bottom: 1.75rem;
+    color: rgba(255, 255, 255, 0.86);
+}
+
