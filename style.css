@@ -253,7 +253,7 @@ p {
     scroll-margin-top: 6rem;
     background:
             linear-gradient(180deg, rgba(26, 18, 32, 0.28) 0%, rgba(26, 18, 32, 0.55) 100%),
-            url("../rsschool-landing-page/assets/images/hero-lavender.jpg") center / cover no-repeat;
+            url("../rsschool-landing-page/assets/images/tea-cup.png") center / cover no-repeat;
 }
 
 .hero-content {
@@ -283,3 +283,239 @@ p {
     color: rgba(255, 255, 255, 0.86);
 }
 
+section {
+    padding: 5.5rem 0;
+    scroll-margin-top: 6rem;
+}
+
+.section--alt {
+    background: #f3eee6;
+}
+
+.section-header {
+    max-width: 42.5rem;
+    margin: 0 auto 3rem;
+    text-align: center;
+}
+
+.eyebrow {
+    display: inline-block;
+    margin-bottom: 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #3d6b4a;
+}
+
+.section-title {
+    font-family: "Playfair Display", "Times New Roman", serif;
+    font-size: clamp(1.75rem, 3vw, 2.625rem);
+    font-weight: 600;
+    line-height: 1.2;
+    color: #5d4d7a;
+}
+
+.section-text {
+    margin-top: 1rem;
+    color: #6b645c;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0.75rem 1.75rem;
+    border-radius: 100rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1;
+    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-ghost {
+    border: 0.0625rem solid rgba(255, 255, 255, 0.55);
+    color: #fff;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.btn-ghost:hover {
+    background: #fff;
+    color: #5d4d7a;
+}
+
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.about-photos {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 1rem;
+}
+
+.about-photos img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 1.25rem;
+}
+
+.about-photos img:first-child {
+    min-height: 26.25rem;
+    grid-row: span 2;
+}
+
+.about-photos img:not(:first-child) {
+    min-height: 12.625rem;
+}
+
+.about-copy .section-title {
+    text-align: left;
+}
+
+.about-copy p {
+    margin-top: 1rem;
+}
+
+.about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.stat {
+    padding: 1rem;
+    border-radius: 1rem;
+    background: #e8e0f0;
+}
+
+.stat b {
+    display: block;
+    font-family: "Playfair Display", "Times New Roman", serif;
+    font-size: 1.75rem;
+    color: #5d4d7a;
+}
+
+.section-alt {
+    background: #f3eee6;
+}
+
+.slider {
+    position: relative;
+    overflow: hidden;
+}
+
+.slider-viewport {
+    overflow: hidden;
+    width: 100%;
+    border-radius: 1.75rem;
+    clip-path: inset(0 round 1.75rem);
+}
+
+.slider-track {
+    display: flex;
+    width: 100%;
+    transition: transform 0.5s ease;
+}
+
+.slider-slide {
+    flex: 0 0 100%;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    min-height: 28.75rem;
+    background: #ffffff;
+    box-shadow: 0 0.75rem 2rem rgba(93, 77, 122, 0.12);
+}
+
+.slider-image {
+    min-height: 28.75rem;
+}
+
+.slider-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slider-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2.5rem;
+}
+
+.slider-body h3 {
+    font-family: "Playfair Display", "Times New Roman", serif;
+    font-size: 2rem;
+    color: #5d4d7a;
+}
+
+.slider-body p {
+    margin: 1rem 0 1.5rem;
+    color: #6b645c;
+}
+
+.slider-meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    color: #3d6b4a;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.slider-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.slider-arrow {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    border: 0.0625rem solid #e6dfd4;
+    background: #ffffff;
+    color: #5d4d7a;
+    display: grid;
+    place-items: center;
+    transition: background-color 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+}
+
+.slider-arrow:hover {
+    background: #5d4d7a;
+    color: #fff;
+    border-color: #5d4d7a;
+    transform: scale(1.05);
+}
+
+.slider-dots {
+    display: flex;
+    gap: 0.625rem;
+}
+
+.slider-dot {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background: #e6dfd4;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.slider-dot.is-active,
+.slider-dot:hover {
+    background: #5d4d7a;
+    transform: scale(1.15);
+}
