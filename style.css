@@ -732,6 +732,10 @@ section {
     grid-template-columns: repeat(4, 1fr);
 }
 
+.herb-grid-action {
+    grid-template-columns: repeat(5, 1fr);
+}
+
 .herb-card {
     position: relative;
     display: flex;
