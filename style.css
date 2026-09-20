@@ -694,6 +694,131 @@ section {
     font-size: 0.9375rem;
 }
 
+.catalog {
+    padding: 1rem 0;
+}
+
+.constructor {
+    display: grid;
+    gap: 2.5rem;
+    margin: 2.5rem 0 3rem;
+}
+
+.constructor-step-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.constructor-step-head h2 {
+    font-family: "Playfair Display", "Times New Roman", serif;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: #5d4d7a;
+}
+
+.constructor-step-head p {
+    color: #6b645c;
+    max-width: 32.5rem;
+}
+
+.herb-grid {
+    display: grid;
+    gap: 1.25rem;
+}
+
+.herb-grid-base {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.herb-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    border: 0.125rem solid #e6dfd4;
+    border-radius: 1.5rem;
+    background: #ffffff;
+    overflow: hidden;
+    color: inherit;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.herb-card:hover {
+    transform: translateY(-0.375rem);
+    box-shadow: 0 0.75rem 2rem rgba(93, 77, 122, 0.12);
+    border-color: #e8e0f0;
+}
+
+.herb-card img {
+    width: 100%;
+    height: 10rem;
+    object-fit: cover;
+}
+
+.herb-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 1rem 1.125rem;
+    flex-grow: 1;
+}
+
+.herb-card-badge {
+    display: inline-flex;
+    align-self: flex-start;
+    padding: 0.25rem 0.625rem;
+    border-radius: 100rem;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: #e8e0f0;
+    color: #5d4d7a;
+}
+
+.herb-card-title {
+    margin: 0;
+    font-family: "Playfair Display", "Times New Roman", serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #5d4d7a;
+    line-height: 1.25;
+}
+
+.herb-card-text {
+    margin: 0;
+    color: #6b645c;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+}
+
+.herb-card-add {
+    margin-top: auto;
+    align-self: stretch;
+    min-height: 2.625rem;
+    padding: 0.625rem 0.875rem;
+    border: 0;
+    border-radius: 100rem;
+    background: #5d4d7a;
+    color: #fff;
+    font: inherit;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.herb-card-add:hover {
+    background: #4a3c64;
+}
+
 .footer {
     background: #f3eee6;
     border-top: 0.0625rem solid #e6dfd4;
