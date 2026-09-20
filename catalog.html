@@ -12,61 +12,86 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="header">
-    <div class="container header-inner">
-        <a class="logo" href="index.html">
-            <img src="assets/images/logo.jpg" alt="Koloski">
-            <span class="logo-text">
-                <span class="logo-name">Травник</span>
-                <span class="logo-tag">Koloski</span>
-            </span>
-        </a>
-        <nav class="nav" id="menu" aria-label="Основная навигация">
-            <ul class="nav-list">
-                <li><a href="index.html#about">О саде</a></li>
-                <li><a href="index.html#blends">Сборы</a></li>
-                <li><a href="index.html#brew">Как заваривать</a></li>
-                <li><a href="catalog.html">Каталог</a></li>
-            </ul>
-        </nav>
-        <div class="header-actions">
-            <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Включить тёмную тему">
-                <span class="theme-toggle-icons" aria-hidden="true">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="4"></circle>
-                        <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
-                    </svg>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 14.3A8.5 8.5 0 1 1 9.7 3 7 7 0 0 0 21 14.3z"></path>
-                    </svg>
+    <header class="header">
+        <div class="container header-inner">
+            <a class="logo" href="index.html">
+                <img src="assets/images/logo.jpg" alt="Koloski">
+                <span class="logo-text">
+                    <span class="logo-name">Травник</span>
+                    <span class="logo-tag">Koloski</span>
                 </span>
-                <span class="theme-toggle-thumb"></span>
-            </button>
-            <button class="cart-toggle" type="button" aria-label="Открыть корзину" aria-controls="cart" aria-expanded="false">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M6 7h15l-1.5 9h-12L5 4H2"></path>
-                    <circle cx="9" cy="20" r="1.4"></circle>
-                    <circle cx="18" cy="20" r="1.4"></circle>
-                </svg>
-                <span class="cart-toggle-count" hidden>0</span>
-            </button>
-            <button class="burger" type="button" aria-label="Открыть меню" aria-controls="menu" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </div>
-</header>
-<main>
-    <section class="hero" id="hero">
-        <div class="container">
-            <div class="hero-content">
-                <p class="eyebrow">Лавандовая ферма в Жодишках</p>
+            </a>
+            <nav class="nav" id="menu" aria-label="Основная навигация">
+                <ul class="nav-list">
+                    <li><a href="index.html#about">О саде</a></li>
+                    <li><a href="index.html#blends">Сборы</a></li>
+                    <li><a href="index.html#brew">Как заваривать</a></li>
+                    <li><a class="is-active" href="catalog.html">Каталог</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Включить тёмную тему">
+                    <span class="theme-toggle-icons" aria-hidden="true">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="4"></circle>
+                            <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
+                        </svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 14.3A8.5 8.5 0 1 1 9.7 3 7 7 0 0 0 21 14.3z"></path>
+                        </svg>
+                    </span>
+                    <span class="theme-toggle-thumb"></span>
+                </button>
+                <button class="cart-toggle" type="button" aria-label="Открыть корзину" aria-controls="cart" aria-expanded="false">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M6 7h15l-1.5 9h-12L5 4H2"></path>
+                        <circle cx="9" cy="20" r="1.4"></circle>
+                        <circle cx="18" cy="20" r="1.4"></circle>
+                    </svg>
+                    <span class="cart-toggle-count" hidden>0</span>
+                </button>
+                <button class="burger" type="button" aria-label="Открыть меню" aria-controls="menu" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </div>
-    </section>
-</main>
-
+    </header>
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <p class="eyebrow">Каталог</p>
+                <h1>Конструктор чая</h1>
+                <p>
+                    Соберите свой сбор по формуле: две части мягкой базы,
+                    одна часть целебной травы и только щепотка сильного аромата.
+                </p>
+                <div class="formula">
+                    <div class="formula-item">
+                        <span class="formula-num">2</span>
+                        <div>
+                            <b>База</b>
+                            <span>листья — тело чая</span>
+                        </div>
+                    </div>
+                    <div class="formula-item formula-item-action">
+                        <span class="formula-num">1</span>
+                        <div>
+                            <b>Действие</b>
+                            <span>целебные травы и ягоды</span>
+                        </div>
+                    </div>
+                    <div class="formula-item formula-item-aroma">
+                        <span class="formula-num">щепотка</span>
+                        <div>
+                            <b>Аромат</b>
+                            <span>ароматные травы</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 </body>
 </html>

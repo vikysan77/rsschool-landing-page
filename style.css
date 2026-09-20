@@ -631,6 +631,69 @@ section {
     font-size: 0.9375rem;
 }
 
+.page-hero {
+    padding: 4rem 0 1.5rem;
+    background: linear-gradient(180deg, #e8e0f0, transparent 80%);
+}
+
+.page-hero h1 {
+    font-family: "Playfair Display", "Times New Roman", serif;
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    color: #5d4d7a;
+}
+
+.page-hero p {
+    max-width: 45rem;
+    margin-top: 1rem;
+    color: #6b645c;
+}
+
+.formula {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 2.25rem 0 0.5rem;
+}
+
+.formula-item {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    padding: 1rem 1.125rem;
+    border-radius: 1.125rem;
+    background: #ffffff;
+    border: 0.0625rem solid #e6dfd4;
+}
+
+.formula-num {
+    display: grid;
+    place-items: center;
+    min-width: 3.5rem;
+    height: 3.5rem;
+    padding: 0 0.5rem;
+    border-radius: 1rem;
+    font-family: "Playfair Display", "Times New Roman", serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    background: #5d4d7a;
+}
+
+.formula-item-action .formula-num {
+    background: #3d6b4a;
+    color: #fff;
+}
+
+.formula-item-aroma .formula-num {
+    background: #c4a35a;
+    letter-spacing: 0.04em;
+}
+
+.formula-item b {
+    display: block;
+    font-size: 0.9375rem;
+}
+
 .footer {
     background: #f3eee6;
     border-top: 0.0625rem solid #e6dfd4;
