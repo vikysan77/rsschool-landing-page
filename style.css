@@ -630,3 +630,86 @@ section {
     color: #6b645c;
     font-size: 0.9375rem;
 }
+
+.footer {
+    background: #f3eee6;
+    border-top: 0.0625rem solid #e6dfd4;
+    padding: 3.5rem 0 1.75rem;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 0.9fr 0.8fr;
+    gap: 2.5rem;
+    padding-bottom: 2.25rem;
+}
+
+.footer-title {
+    font-family: "Playfair Display", "Times New Roman", serif;
+    font-size: 1.375rem;
+    color: #5d4d7a;
+    margin-bottom: 1rem;
+}
+
+.footer p,
+.footer address {
+    font-style: normal;
+    color: #6b645c;
+}
+
+.footer-contacts {
+    display: grid;
+    gap: 0.625rem;
+}
+
+.footer a:hover {
+    opacity: 0.75;
+}
+
+.socials {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.125rem;
+}
+
+.socials a {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: #ffffff;
+    color: #5d4d7a;
+    border: 0.0625rem solid #e6dfd4;
+}
+
+.socials a:hover {
+    background: #5d4d7a;
+    color: #fff;
+    opacity: 1;
+}
+
+[data-theme="dark"] .socials a:hover {
+    color: #1a1520;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 0.0625rem solid #e6dfd4;
+    color: #6b645c;
+    font-size: 0.875rem;
+}
+
+.rs-logo {
+    display: inline-flex;
+    align-items: center;
+}
+
+.rs-logo img {
+    width: 5rem;
+    height: 1.75rem;
+}
