@@ -19,6 +19,7 @@ body {
     background: #fdfaf6;
     overflow-x: hidden;
     transition: background-color 0.3s ease, color 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
 }
 
 img {
@@ -334,6 +335,25 @@ section {
     transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.btn-primary {
+    background: #5d4d7a;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: #4a3c64;
+    color: #fff;
+    transform: translateY(-0.125rem);
+}
+
+.btn:disabled,
+.btn-primary:disabled:hover {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
 .btn-ghost {
     border: 0.0625rem solid rgba(255, 255, 255, 0.55);
     color: #fff;
@@ -344,7 +364,6 @@ section {
     background: #fff;
     color: #5d4d7a;
 }
-
 
 .about-grid {
     display: grid;
@@ -825,6 +844,197 @@ section {
 
 .herb-card-add:hover {
     background: #4a3c64;
+}
+
+.blend-result {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 1.75rem;
+    padding: 1.75rem;
+    border-radius: 1.75rem;
+    background: #ffffff;
+    border: 0.0625rem solid #e6dfd4;
+    box-shadow: 0 0.75rem 2rem rgba(93, 77, 122, 0.12);
+}
+
+.blend-result h2 {
+    font-family: "Playfair Display", "Times New Roman", serif;
+    font-size: clamp(1.625rem, 3vw, 2.25rem);
+    color: #5d4d7a;
+    margin: 0.5rem 0 0.75rem;
+}
+
+.blend-result-recipe {
+    color: #6b645c;
+}
+
+.blend-ratio {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+    margin: 1.25rem 0;
+}
+
+.blend-ratio span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 100rem;
+    background: #f3eee6;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.blend-result-visual {
+    display: grid;
+    align-content: center;
+    gap: 1.25rem;
+}
+
+.blend-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    min-height: 2.5rem;
+}
+
+.blend-chips:empty::before {
+    content: "Пока пусто — добавьте травы карточками выше.";
+    color: #6b645c;
+    font-size: 0.875rem;
+}
+
+.blend-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    max-width: 100%;
+    padding: 0.25rem 0.25rem 0.25rem 0.25rem;
+    border: 0.0625rem solid transparent;
+    border-radius: 100rem;
+}
+
+.blend-chip img {
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 0.125rem currentColor;
+}
+
+.blend-chip span {
+    white-space: nowrap;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.blend-chip-remove {
+    display: grid;
+    place-items: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: inherit;
+    font-size: 1.125rem;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+.blend-chip-remove:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.45);
+}
+
+.blend-chip-base {
+    background: #e8e0f0;
+    color: #5d4d7a;
+}
+
+.blend-chip-action {
+    background: #e4efe6;
+    color: #3d6b4a;
+}
+
+.blend-chip-aroma {
+    background: #f3e6c8;
+    color: #8a6a2a;
+}
+
+.blend-groups {
+    display: grid;
+    gap: 0.875rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.blend-groups-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.375rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+}
+
+.blend-groups-head span {
+    color: #6b645c;
+    font-weight: 600;
+}
+
+.blend-bar {
+    height: 0.5rem;
+    border-radius: 100rem;
+    background: #f3eee6;
+    overflow: hidden;
+}
+
+.blend-bar i {
+    display: block;
+    height: 100%;
+    width: 0;
+    border-radius: inherit;
+    background: #5d4d7a;
+    transition: width 0.3s ease;
+}
+
+.blend-bar-action i {
+    background: #3d6b4a;
+}
+
+.blend-bar-aroma i {
+    background: #c4a35a;
+}
+
+.blend-result-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1.25rem;
+    font-weight: 700;
+}
+
+.blend-result-price {
+    color: #3d6b4a;
+    font-size: 1.125rem;
+}
+
+.blend-result-cart {
+    margin-top: 1.25rem;
+    width: 100%;
 }
 
 .footer {
