@@ -1404,3 +1404,202 @@ section {
         padding: 1.5rem 1rem;
     }
 }
+
+[data-theme="dark"] body {
+    background: #1a1520;
+}
+
+[data-theme="dark"] body,
+[data-theme="dark"] .hero-content {
+    color: #f4eee6;
+}
+
+[data-theme="dark"] .header {
+    background: rgba(26, 21, 32, 0.92);
+    border-bottom-color: #3d3450;
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+    box-shadow: 0 0 0 0.1875rem #3a3148;
+}
+
+[data-theme="dark"] a,
+[data-theme="dark"] .logo,
+[data-theme="dark"] .section-title,
+[data-theme="dark"] .nav-list a:hover,
+[data-theme="dark"] .cart-toggle,
+[data-theme="dark"] .theme-toggle-icons,
+[data-theme="dark"] .burger span,
+[data-theme="dark"] .stat b,
+[data-theme="dark"] .slider-body h3,
+[data-theme="dark"] .slider-arrow,
+[data-theme="dark"] .benefit h3,
+[data-theme="dark"] .page-hero h1,
+[data-theme="dark"] .constructor-step-head h2,
+[data-theme="dark"] .herb-card-title,
+[data-theme="dark"] .herb-card-badge,
+[data-theme="dark"] .blend-result h2,
+[data-theme="dark"] .blend-chip-base,
+[data-theme="dark"] .cart-head h2,
+[data-theme="dark"] .cart-close,
+[data-theme="dark"] .cart-item b,
+[data-theme="dark"] .cart-telegram,
+[data-theme="dark"] .catalog-tab:hover,
+[data-theme="dark"] .product-card h3,
+[data-theme="dark"] .footer-title,
+[data-theme="dark"] .socials a {
+    color: #c4b0dc;
+}
+
+[data-theme="dark"] a:hover,
+[data-theme="dark"] .logo:hover,
+[data-theme="dark"] .cart-telegram:hover {
+    color: #d8c6ee;
+}
+
+[data-theme="dark"] .section-alt,
+[data-theme="dark"] .blend-ratio span,
+[data-theme="dark"] .blend-bar,
+[data-theme="dark"] .footer {
+    background: #241e2e;
+}
+
+[data-theme="dark"] .slider-slide,
+[data-theme="dark"] .slider-arrow,
+[data-theme="dark"] .benefit,
+[data-theme="dark"] .step,
+[data-theme="dark"] .formula-item,
+[data-theme="dark"] .herb-card,
+[data-theme="dark"] .blend-result,
+[data-theme="dark"] .cart,
+[data-theme="dark"] .catalog-tab,
+[data-theme="dark"] .product-card,
+[data-theme="dark"] .socials a {
+    background: #2c2438;
+}
+
+[data-theme="dark"] .section-text,
+[data-theme="dark"] .logo-tag,
+[data-theme="dark"] .nav-list a,
+[data-theme="dark"] .slider-body p,
+[data-theme="dark"] .benefit p,
+[data-theme="dark"] .step p,
+[data-theme="dark"] .page-hero p,
+[data-theme="dark"] .constructor-step-head p,
+[data-theme="dark"] .herb-card-text,
+[data-theme="dark"] .blend-result-recipe,
+[data-theme="dark"] .blend-groups-head span,
+[data-theme="dark"] .cart-empty,
+[data-theme="dark"] .cart-item span,
+[data-theme="dark"] .cart-remove,
+[data-theme="dark"] .cart-hint,
+[data-theme="dark"] .catalog-tab,
+[data-theme="dark"] .product-card p,
+[data-theme="dark"] .product-card-weight,
+[data-theme="dark"] .footer p,
+[data-theme="dark"] .footer address,
+[data-theme="dark"] .footer-bottom {
+    color: #c4b8c9;
+}
+
+[data-theme="dark"] .header,
+[data-theme="dark"] .slider-arrow,
+[data-theme="dark"] .benefit,
+[data-theme="dark"] .step,
+[data-theme="dark"] .formula-item,
+[data-theme="dark"] .herb-card,
+[data-theme="dark"] .blend-result,
+[data-theme="dark"] .cart,
+[data-theme="dark"] .cart-head,
+[data-theme="dark"] .cart-footer,
+[data-theme="dark"] .catalog-tab,
+[data-theme="dark"] .product-card,
+[data-theme="dark"] .socials a,
+[data-theme="dark"] .footer,
+[data-theme="dark"] .footer-bottom,
+[data-theme="dark"] .theme-toggle,
+[data-theme="dark"] .cart-telegram {
+    border-color: #3d3450;
+}
+
+[data-theme="dark"] .eyebrow,
+[data-theme="dark"] .slider-meta,
+[data-theme="dark"] .benefit-icon,
+[data-theme="dark"] .blend-chip-action,
+[data-theme="dark"] .blend-result-price,
+[data-theme="dark"] .cart-total b,
+[data-theme="dark"] .product-card-price {
+    color: #8fbf8a;
+}
+
+[data-theme="dark"] .cart-toggle-count,
+[data-theme="dark"] .formula-item-action .formula-num,
+[data-theme="dark"] .blend-bar-action i {
+    background: #8fbf8a;
+}
+
+[data-theme="dark"] .benefit-icon,
+[data-theme="dark"] .blend-chip-action {
+    background: #2d3a30;
+}
+
+[data-theme="dark"] .nav-list a:hover,
+[data-theme="dark"] .nav-list a.is-active,
+[data-theme="dark"] .cart-toggle:hover,
+[data-theme="dark"] .theme-toggle,
+[data-theme="dark"] .burger:hover,
+[data-theme="dark"] .stat,
+[data-theme="dark"] .herb-card-badge,
+[data-theme="dark"] .blend-chip-base,
+[data-theme="dark"] .cart-close:hover,
+[data-theme="dark"] .cart-remove:hover,
+[data-theme="dark"] .cart-telegram:hover {
+    background: #3a3148;
+}
+
+[data-theme="dark"] .theme-toggle-thumb,
+[data-theme="dark"] .step-num,
+[data-theme="dark"] .formula-num,
+[data-theme="dark"] .herb-card-add,
+[data-theme="dark"] .slider-dot:hover,
+[data-theme="dark"] .slider-arrow:hover {
+    background: #c4b0dc;
+}
+
+[data-theme="dark"] .herb-card-add {
+    color: #1a1520;
+}
+
+[data-theme="dark"] .btn-primary:hover,
+[data-theme="dark"] .herb-card-add:hover {
+    background: #d8c6ee;
+}
+
+[data-theme="dark"] .catalog-tab:hover,
+[data-theme="dark"] .slider-arrow:hover {
+    border-color: #c4b0dc;
+}
+
+[data-theme="dark"] .slider-slide,
+[data-theme="dark"] .benefit:hover,
+[data-theme="dark"] .step:hover,
+[data-theme="dark"] .herb-card:hover,
+[data-theme="dark"] .blend-result,
+[data-theme="dark"] .cart,
+[data-theme="dark"] .product-card:hover {
+    box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="dark"] .herb-card:hover,
+[data-theme="dark"] .benefit:hover,
+[data-theme="dark"] .product-card:hover {
+    border-color: #3a3148;
+}
+
+[data-theme="dark"] .page-hero {
+    background: linear-gradient(180deg, #3a3148, transparent 80%);
+}
+
+[data-theme="dark"] .slider-dot {
+    background: #3d3450;
+}
