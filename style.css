@@ -247,7 +247,6 @@ p {
 
 .hero {
     position: relative;
-    height: calc(100vh - 5.25rem);
     min-height: 40rem;
     display: flex;
     align-items: center;
@@ -629,10 +628,10 @@ section {
 }
 
 .step-num {
-    display: grid;
-    place-items: center;
+    text-align: center;
     width: 3.5rem;
     height: 3.5rem;
+    padding-top: 0.3rem;
     border-radius: 50%;
     font-family: "Playfair Display", "Times New Roman", serif;
     font-size: 1.5rem;
@@ -807,6 +806,17 @@ section {
     background: #e8e0f0;
     color: #5d4d7a;
 }
+
+.badge-action {
+    background: #e4efe6;
+    color: #3d6b4a;
+}
+
+.badge-aroma {
+    background: #f3e6c8;
+    color: #8a6a2a;
+}
+
 
 .herb-card-title {
     margin: 0;
@@ -1228,4 +1238,169 @@ section {
 .rs-logo img {
     width: 5rem;
     height: 1.75rem;
+}
+
+@media (max-width: 75rem) {
+    .catalog-grid,
+    .benefits-grid,
+    .herb-grid-action {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 64rem) {
+    .about-grid,
+    .brew-grid,
+    .slider-slide,
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .slider-image,
+    .slider-image img,
+    .brew-image,
+    .brew-image img,
+    .about-photos img:first-child {
+        min-height: 20rem;
+    }
+
+    .benefits-grid,
+    .catalog-grid,
+    .herb-grid-base,
+    .herb-grid-action,
+    .herb-grid-aroma,
+    .formula,
+    .blend-result {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .about-copy {
+        order: -1;
+    }
+}
+
+@media (max-width: 48rem) {
+    .container {
+        padding: 0 1.25rem;
+    }
+
+    .section {
+        padding: 4rem 0;
+    }
+
+    .nav {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 5.25rem);
+        background: #ffffff;
+        border-left: 0;
+        transform: translateX(100%);
+        visibility: hidden;
+        pointer-events: none;
+        transition: transform 0.35s ease;
+        padding: 2rem 1.5rem;
+        z-index: 15;
+    }
+
+    .nav.is-open {
+        transform: translateX(0);
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    .nav-list {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+    }
+
+    .nav-list a {
+        padding: 0.875rem 1rem;
+        font-size: 1.125rem;
+    }
+
+    .burger {
+        display: flex;
+    }
+
+    .hero {
+        min-height: 35rem;
+    }
+
+    .hero-content {
+        padding: 2rem 1.5rem;
+    }
+
+    .about-stats,
+    .footer-bottom {
+        grid-template-columns: 1fr;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .logo-name {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 35rem) {
+    .catalog-grid,
+    .benefits-grid,
+    .about-stats,
+    .formula,
+    .herb-grid-base,
+    .herb-grid-action,
+    .herb-grid-aroma,
+    .blend-result {
+        grid-template-columns: 1fr;
+    }
+
+    .constructor-step-head {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .about-photos img:first-child,
+    .about-photos img:not(:first-child) {
+        min-height: 13.75rem;
+        grid-row: auto;
+    }
+
+    .slider-body {
+        padding: 1.5rem;
+    }
+
+    .logo {
+        gap: 0.3rem;
+    }
+
+    .logo img {
+        width: 2rem;
+        height: 2rem;
+    }
+
+    .hero {
+        min-height: 32.5rem;
+        background-position: 62% center;
+    }
+}
+
+@media (max-width: 23.75rem) {
+    .container {
+        padding: 0 1rem;
+    }
+
+    .section {
+        padding: 3rem 0;
+    }
+
+    .logo-tag {
+        display: none;
+    }
+
+    .hero-content {
+        padding: 1.5rem 1rem;
+    }
 }
