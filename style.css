@@ -736,6 +736,10 @@ section {
     grid-template-columns: repeat(5, 1fr);
 }
 
+.herb-grid-aroma {
+    grid-template-columns: repeat(3, 1fr);
+}
+
 .herb-card {
     position: relative;
     display: flex;
