@@ -253,7 +253,7 @@ p {
     scroll-margin-top: 6rem;
     background:
             linear-gradient(180deg, rgba(26, 18, 32, 0.28) 0%, rgba(26, 18, 32, 0.55) 100%),
-            url("../rsschool-landing-page/assets/images/tea-cup.png") center / cover no-repeat;
+            url("../assets/images/tea-cup.png") center / cover no-repeat;
 }
 
 .hero-content {
