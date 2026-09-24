@@ -22,6 +22,26 @@ body {
     -webkit-tap-highlight-color: transparent;
 }
 
+html:has(body.menu-open) {
+    overflow: hidden;
+}
+
+body.menu-open {
+    position: fixed;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding-top: 5.25rem;
+    overflow: hidden;
+}
+
+body.menu-open .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
 img {
     max-width: 100%;
     height: auto;
@@ -44,6 +64,7 @@ button {
     border: 0;
     background: none;
     color: inherit;
+    outline: none;
 }
 
 ul {
@@ -243,6 +264,18 @@ p {
     background: #5d4d7a;
     border-radius: 0.125rem;
     transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.burger.is-open span:nth-child(1) {
+    transform: translateY(0.4375rem) rotate(45deg);
+}
+
+.burger.is-open span:nth-child(2) {
+    opacity: 0;
+}
+
+.burger.is-open span:nth-child(3) {
+    transform: translateY(-0.4375rem) rotate(-45deg);
 }
 
 .hero {
@@ -1300,7 +1333,7 @@ section {
         transform: translateX(100%);
         visibility: hidden;
         pointer-events: none;
-        transition: transform 0.35s ease;
+        transition: transform 0.35s ease, visibility 0s linear 0.35s;
         padding: 2rem 1.5rem;
         z-index: 15;
     }
@@ -1309,6 +1342,7 @@ section {
         transform: translateX(0);
         visibility: visible;
         pointer-events: auto;
+        transition: transform 0.35s ease, visibility 0s linear 0s;
     }
 
     .nav-list {
