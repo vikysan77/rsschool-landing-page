@@ -530,7 +530,7 @@ section {
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    margin-top: 1.5rem;
+    margin: 1.5rem 0;
 }
 
 .slider-arrow {
@@ -555,6 +555,11 @@ section {
 .slider-dots {
     display: flex;
     gap: 0.625rem;
+}
+
+.slider-dots[hidden],
+.slider-arrow[hidden] {
+    display: none;
 }
 
 .slider-dot {
