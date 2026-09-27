@@ -292,6 +292,41 @@
             </div>
         </section>
     </main>
+    <div class="modal" id="product-modal" hidden>
+        <div class="modal-backdrop"></div>
+        <div class="modal-window" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <button class="modal-close" type="button" aria-label="Закрыть">×</button>
+            <img class="modal-image" id="modal-image" alt="">
+            <div class="modal-body">
+                <div class="modal-heading">
+                    <p class="eyebrow" id="modal-eyebrow">Каталог</p>
+                    <h2 id="modal-title"></h2>
+                </div>
+                <p class="modal-text" id="modal-text"></p>
+                <div class="modal-options">
+                    <fieldset class="modal-option">
+                        <legend>Вес пачки</legend>
+                        <div class="modal-choices" id="modal-weight">
+                            <button class="modal-choice" type="button" data-weight="50" aria-pressed="false">50 г</button>
+                            <button class="modal-choice" type="button" data-weight="100" aria-pressed="false">100 г</button>
+                        </div>
+                    </fieldset>
+                    <fieldset class="modal-option">
+                        <legend>Заварка</legend>
+                        <div class="modal-choices" id="modal-brew">
+                            <button class="modal-choice" type="button" data-brew="cup" aria-pressed="false">На чашку</button>
+                            <button class="modal-choice" type="button" data-brew="teapot" aria-pressed="false">На чайник</button>
+                        </div>
+                    </fieldset>
+                </div>
+                <p class="modal-brew" id="modal-brew-text"></p>
+                <div class="modal-footer">
+                    <span class="modal-price" id="modal-price"></span>
+                    <button class="btn btn-primary modal-cart" type="button" id="modal-cart">В корзину</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">

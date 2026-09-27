@@ -67,6 +67,7 @@ if (burger && nav) {
     });
 }
 
+const packPrices = { '50': 10, '100': 20 };
 const slider = document.querySelector('.slider');
 
 const sliderData = [
@@ -78,7 +79,7 @@ const sliderData = [
         text: 'Листья и ягоды чёрной смородины, душица, чабрец и мята. Применяется после еды или при тяжести в животе. Помогает пищеварению, убирает вздутие,\n' +
             'обладает спазмолитическим действием.',
         weight: '50 г',
-        price: '10 BYN'
+        price: packPrices['50'] + ' BYN'
     },
     {
         image: 'assets/images/blend-summer.png',
@@ -88,7 +89,7 @@ const sliderData = [
         text: 'Мягкий чай из листьев и ягод черной смородины, листьев вишни, цветков ромашки и лаванды. Помогает замедлиться после дня.\n' +
             'Лёгкий антидепрессивный эффект. Улучшает сон, но не вызывает сонливости, поэтому можно пить в любое время.',
         weight: '50 г',
-        price: '10 BYN'
+        price: packPrices['50'] + ' BYN'
     },
     {
         image: 'assets/images/blend-morning.png',
@@ -98,7 +99,7 @@ const sliderData = [
         text: 'Травяной чай из листьев вишни, листьев винограда, цветов чабреца, мяты и ромашки. Чай для мягкого пробуждения и ясной головы.\n' +
             'Подходит для неторопливого утра, помогает проснуться без кофе.',
         weight: '50 г',
-        price: '10 BYN'
+        price: packPrices['50'] + ' BYN'
     }
 ];
 
@@ -277,48 +278,33 @@ if (slider) {
     update();
 }
 
-function herbPacks(herbs) {
-    const packs = [];
+function catalogProduct(item, size) {
+    const isHeavy = size === '100';
+    const stockText = item.stockText || item.text + ' Большая пачка — на несколько недель.';
 
-    herbs.forEach(function (item) {
-        packs.push({
-            id: item.id + '-50',
-            category: item.category,
-            name: item.name,
-            text: item.text,
-            image: item.image,
-            alt: item.alt,
-            weight: '50 г',
-            price: item.price
-        });
-    });
-
-    herbs.forEach(function (item) {
-        packs.push({
-            id: item.id + '-100',
-            category: item.category,
-            name: item.name,
-            text: item.stockText,
-            image: item.image,
-            alt: item.alt,
-            weight: '100 г',
-            price: item.price === 10 ? 20 : 15
-        });
-    });
-
-    return packs;
+    return {
+        id: item.id,
+        category: item.category,
+        name: item.name,
+        lead: item.text,
+        stockText: stockText,
+        text: isHeavy ? stockText : item.text,
+        image: item.image,
+        alt: item.alt,
+        size: size,
+        price: packPrices[size],
+        brew: item.category === 'aroma' ? 'cup' : 'teapot'
+    };
 }
 
-const catalogProducts = [
+const blendItems = [
     {
         id: 'blend-morning',
         category: 'blends',
         name: 'Спокойное утро',
         text: 'Лист вишни, лист винограда, мята, чабрец и ромашка.',
         image: 'assets/images/blend-morning.png',
-        alt: 'Сбор «Спокойное утро»: листья вишни и винограда, мята, чабрец и ромашка',
-        weight: '50 г',
-        price: 10
+        alt: 'Сбор «Спокойное утро»: листья вишни и винограда, мята, чабрец и ромашка'
     },
     {
         id: 'blend-stomach',
@@ -326,9 +312,7 @@ const catalogProducts = [
         name: 'Желудочный комфорт',
         text: 'Лист чёрной смородины, ягоды чёрной смородины, душица, чабрец и мята.',
         image: 'assets/images/blend-stomach.png',
-        alt: 'Сбор «Желудочный комфорт»: лист и ягоды чёрной смородины, душица, чабрец и мята',
-        weight: '50 г',
-        price: 10
+        alt: 'Сбор «Желудочный комфорт»: лист и ягоды чёрной смородины, душица, чабрец и мята'
     },
     {
         id: 'blend-cold',
@@ -336,9 +320,7 @@ const catalogProducts = [
         name: 'Простуда-стоп!',
         text: 'Лист малины, лист облепихи, эхинацея, душица и чабрец.',
         image: 'assets/images/blend-cold.png',
-        alt: 'Сбор «Простуда-стоп!»: лист малины, лист облепихи, эхинацея, душица и чабрец',
-        weight: '50 г',
-        price: 10
+        alt: 'Сбор «Простуда-стоп!»: лист малины, лист облепихи, эхинацея, душица и чабрец'
     },
     {
         id: 'blend-summer',
@@ -346,9 +328,7 @@ const catalogProducts = [
         name: 'Летнее настроение',
         text: 'Лист чёрной смородины, лист вишни, ягоды чёрной смородины, лаванда и ромашка.',
         image: 'assets/images/blend-summer.png',
-        alt: 'Сбор «Летнее настроение»: лист смородины, лист вишни, ягоды смородины, лаванда и ромашка',
-        weight: '50 г',
-        price: 10
+        alt: 'Сбор «Летнее настроение»: лист смородины, лист вишни, ягоды смородины, лаванда и ромашка'
     },
     {
         id: 'blend-garden-silence',
@@ -356,9 +336,7 @@ const catalogProducts = [
         name: 'Садовая тишина',
         text: 'Лист винограда, ромашка и мята.',
         image: 'assets/images/blend-garden-silence.png',
-        alt: 'Сбор «Садовая тишина»: листья винограда, ромашка и мята',
-        weight: '50 г',
-        price: 10
+        alt: 'Сбор «Садовая тишина»: листья винограда, ромашка и мята'
     },
     {
         id: 'blend-garden-shield',
@@ -366,9 +344,7 @@ const catalogProducts = [
         name: 'Щит сада',
         text: 'Лист винограда, эхинацея и лаванда.',
         image: 'assets/images/blend-garden-shield.png',
-        alt: 'Сбор «Щит сада»: листья винограда, эхинацея и лаванда',
-        weight: '50 г',
-        price: 10
+        alt: 'Сбор «Щит сада»: листья винограда, эхинацея и лаванда'
     },
     {
         id: 'blend-cherry-evening',
@@ -376,9 +352,7 @@ const catalogProducts = [
         name: 'Вишнёвый вечер',
         text: 'Лист вишни, ромашка и лаванда.',
         image: 'assets/images/blend-cherry-evening.png',
-        alt: 'Сбор «Вишнёвый вечер»: листья вишни, ромашка и лаванда',
-        weight: '50 г',
-        price: 10
+        alt: 'Сбор «Вишнёвый вечер»: листья вишни, ромашка и лаванда'
     },
     {
         id: 'blend-warm-slope',
@@ -386,9 +360,7 @@ const catalogProducts = [
         name: 'Тёплый склон',
         text: 'Лист вишни, чабрец и мята.',
         image: 'assets/images/blend-warm-slope.png',
-        alt: 'Сбор «Тёплый склон»: листья вишни, чабрец и мята',
-        weight: '50 г',
-        price: 10
+        alt: 'Сбор «Тёплый склон»: листья вишни, чабрец и мята'
     },
     {
         id: 'blend-double-currant',
@@ -396,9 +368,7 @@ const catalogProducts = [
         name: 'Смородина вдвойне',
         text: 'Лист чёрной смородины, ягоды чёрной смородины и душица.',
         image: 'assets/images/blend-double-currant.png',
-        alt: 'Сбор «Смородина вдвойне»: лист и ягоды смородины с душицей',
-        weight: '50 г',
-        price: 10
+        alt: 'Сбор «Смородина вдвойне»: лист и ягоды смородины с душицей'
     },
     {
         id: 'blend-amber-garden',
@@ -406,9 +376,7 @@ const catalogProducts = [
         name: 'Янтарный сад',
         text: 'Лист чёрной смородины, лист облепихи и мята.',
         image: 'assets/images/blend-amber-garden.png',
-        alt: 'Сбор «Янтарный сад»: лист смородины, лист облепихи и мята',
-        weight: '50 г',
-        price: 10
+        alt: 'Сбор «Янтарный сад»: лист смородины, лист облепихи и мята'
     },
     {
         id: 'blend-raspberry-shield',
@@ -416,9 +384,7 @@ const catalogProducts = [
         name: 'Малиновый щит',
         text: 'Лист малины, эхинацея и лаванда.',
         image: 'assets/images/blend-raspberry-shield.png',
-        alt: 'Сбор «Малиновый щит»: лист малины, эхинацея и лаванда',
-        weight: '50 г',
-        price: 10
+        alt: 'Сбор «Малиновый щит»: лист малины, эхинацея и лаванда'
     },
     {
         id: 'blend-berry-rest',
@@ -426,9 +392,7 @@ const catalogProducts = [
         name: 'Ягодный покой',
         text: 'Лист малины, ромашка и ягоды чёрной смородины.',
         image: 'assets/images/blend-berry-rest.png',
-        alt: 'Сбор «Ягодный покой»: лист малины, ромашка и ягоды смородины',
-        weight: '50 г',
-        price: 10
+        alt: 'Сбор «Ягодный покой»: лист малины, ромашка и ягоды смородины'
     },
     {
         id: 'blend-field-bouquet',
@@ -436,9 +400,7 @@ const catalogProducts = [
         name: 'Полевой букет',
         text: 'Лист винограда, душица и лаванда.',
         image: 'assets/images/blend-field-bouquet.png',
-        alt: 'Сбор «Полевой букет»: лист винограда, душица и лаванда',
-        weight: '50 г',
-        price: 10
+        alt: 'Сбор «Полевой букет»: лист винограда, душица и лаванда'
     },
     {
         id: 'blend-sunny-cherry',
@@ -446,11 +408,11 @@ const catalogProducts = [
         name: 'Солнечная вишня',
         text: 'Лист вишни, лист облепихи и ягоды чёрной смородины.',
         image: 'assets/images/blend-sunny-cherry.png',
-        alt: 'Сбор «Солнечная вишня»: лист вишни, лист облепихи и ягоды смородины',
-        weight: '50 г',
-        price: 10
+        alt: 'Сбор «Солнечная вишня»: лист вишни, лист облепихи и ягоды смородины'
     }
-].concat(herbPacks([
+];
+
+const herbItems = [
     {
         id: 'grape',
         category: 'base',
@@ -458,8 +420,7 @@ const catalogProducts = [
         text: 'База сбора. Две части на чайник — мягкая терпкая основа.',
         stockText: 'База на запас. Мягкой терпкой основы хватит на несколько недель.',
         image: 'assets/images/grape-leaves.png',
-        alt: 'Свежие и сушёные листья винограда',
-        price: 10
+        alt: 'Свежие и сушёные листья винограда'
     },
     {
         id: 'cherry',
@@ -468,8 +429,7 @@ const catalogProducts = [
         text: 'База сбора. Две части дают тёплый фруктовый тон.',
         stockText: 'База на запас. Тёплого фруктового тона хватит на много заварок.',
         image: 'assets/images/cherry-leaves.png',
-        alt: 'Свежие и сушёные листья вишни',
-        price: 10
+        alt: 'Свежие и сушёные листья вишни'
     },
     {
         id: 'currant-leaf',
@@ -478,8 +438,7 @@ const catalogProducts = [
         text: 'База сбора. Две части — насыщенный садовый вкус.',
         stockText: 'База на запас. Насыщенный садовый вкус в большой пачке.',
         image: 'assets/images/currant-leaves.png',
-        alt: 'Свежие и сушёные листья чёрной смородины',
-        price: 10
+        alt: 'Свежие и сушёные листья чёрной смородины'
     },
     {
         id: 'raspberry-leaf',
@@ -488,8 +447,7 @@ const catalogProducts = [
         text: 'База сбора. Две части мягкой ягодной основы.',
         stockText: 'База на запас. Мягкая ягодная основа на много чашек.',
         image: 'assets/images/raspberry-leaves.png',
-        alt: 'Свежие и сушёные листья малины',
-        price: 10
+        alt: 'Свежие и сушёные листья малины'
     },
     {
         id: 'chamomile',
@@ -498,8 +456,7 @@ const catalogProducts = [
         text: 'Целебная трава. Одна часть успокаивает и смягчает сбор.',
         stockText: 'Целебная трава на запас. Одна часть по-прежнему успокаивает сбор.',
         image: 'assets/images/chamomile.png',
-        alt: 'Свежие и сушёные цветки ромашки',
-        price: 10
+        alt: 'Свежие и сушёные цветки ромашки'
     },
     {
         id: 'echinacea',
@@ -508,8 +465,7 @@ const catalogProducts = [
         text: 'Целебная трава. Одна часть для поддержки иммунитета.',
         stockText: 'Целебная трава на запас. Для поддержки в сезон простуд.',
         image: 'assets/images/echinacea.png',
-        alt: 'Свежие и сушёные цветки эхинацеи',
-        price: 10
+        alt: 'Свежие и сушёные цветки эхинацеи'
     },
     {
         id: 'seabuckthorn',
@@ -518,8 +474,7 @@ const catalogProducts = [
         text: 'Целебная ягода. Одна часть даёт витаминную яркость.',
         stockText: 'Целебная ягода на запас. Витаминная яркость облепихи на много чашек.',
         image: 'assets/images/seabuckthorn-leaves.png',
-        alt: 'Свежие и сушёные листья облепихи',
-        price: 10
+        alt: 'Свежие и сушёные листья облепихи'
     },
     {
         id: 'oregano',
@@ -528,8 +483,7 @@ const catalogProducts = [
         text: 'Целебная трава. Одна часть согревает и помогает дыханию.',
         stockText: 'Целебная трава на запас. Тёплая душица для дыхания — на много заварок.',
         image: 'assets/images/oregano.png',
-        alt: 'Свежая и сушёная душица',
-        price: 10
+        alt: 'Свежая и сушёная душица'
     },
     {
         id: 'thyme',
@@ -538,8 +492,7 @@ const catalogProducts = [
         text: 'Целебная трава. Одна часть задаёт сильный согревающий вкус.',
         stockText: 'Целебная трава на запас. Согревающий чабрец, одна часть на чайник.',
         image: 'assets/images/thyme.png',
-        alt: 'Свежий и сушёный чабрец',
-        price: 10
+        alt: 'Свежий и сушёный чабрец'
     },
     {
         id: 'mint',
@@ -548,18 +501,16 @@ const catalogProducts = [
         text: 'Аромат. Только щепотка — иначе перебьёт всю базу.',
         stockText: 'Аромат на запас. На чайник всё равно только щепотка мяты.',
         image: 'assets/images/mint.png',
-        alt: 'Свежая и сушёная мята',
-        price: 10
+        alt: 'Свежая и сушёная мята'
     },
     {
         id: 'lavender',
         category: 'aroma',
         name: 'Лаванда',
         text: 'Аромат Hidcote. Щепотка цветочного покоя на чайник.',
-        stockText: 'Ароматная лаванда. Больше щепотки на чайник не нужно.',
+        stockText: 'Аромат Hidcote на запас. Больше щепотки на чайник не нужно.',
         image: 'assets/images/lavender.png',
-        alt: 'Свежая и сушёная лаванда',
-        price: 10
+        alt: 'Свежая и сушёная лаванда'
     },
     {
         id: 'currant-berry',
@@ -568,120 +519,254 @@ const catalogProducts = [
         text: 'Аромат. Щепотка сухих ягод в финале сбора.',
         stockText: 'Аромат на запас. Щепотка сухих ягод в финале каждого сбора.',
         image: 'assets/images/currant-berries.png',
-        alt: 'Свежие и сушёные ягоды чёрной смородины',
-        price: 10
+        alt: 'Свежие и сушёные ягоды чёрной смородины'
     }
-]));
+];
+
+function packsOf(items, size) {
+    return items.map(function (item) {
+        return catalogProduct(item, size);
+    });
+}
+
+const catalogProducts = packsOf(blendItems, '50').concat(
+    packsOf(herbItems, '50'),
+    packsOf(herbItems, '100')
+);
+
+const productModal = document.getElementById('product-modal');
+
+if (productModal) {
+    const modalImage = document.getElementById('modal-image');
+    const modalEyebrow = document.getElementById('modal-eyebrow');
+    const modalTitle = document.getElementById('modal-title');
+    const modalText = document.getElementById('modal-text');
+    const modalBrewText = document.getElementById('modal-brew-text');
+    const modalPrice = document.getElementById('modal-price');
+    const categoryLabels = {
+        blends: 'Купаж',
+        base: 'База',
+        action: 'Действие',
+        aroma: 'Аромат'
+    };
+    const brewNotes = {
+        cup: {
+            aroma: { text: 'Щепотка на чашку 200 мл, настаивать 5 минут.', tail: 'хватит на много чашек' },
+            action: { text: 'Половина чайной ложки на чашку 200 мл, 7–8 минут.', per: 1.5, unit: 'чашек' },
+            base: { text: 'Чайная ложка на чашку 200 мл, 6–7 минут.', per: 2, unit: 'чашек' },
+            blends: { text: '1–0,5 чайной ложки сбора на чашку 200 мл, 6–8 минут.', per: 2, unit: 'чашек' }
+        },
+        teapot: {
+            aroma: { text: 'Только щепотка на чайник, иначе аромат перебьёт базу.', tail: 'хватит надолго' },
+            action: { text: 'Одна часть, около 2 г на чайник 500 мл, 8 минут.', per: 2, unit: 'заварок' },
+            base: { text: 'Две части, около 4 г на чайник 500 мл, 7 минут.', per: 4, unit: 'заварок' },
+            blends: { text: '1–2 чайные ложки сбора на чайник 500 мл, 7–10 минут.', per: 5, unit: 'заварок' }
+        }
+    };
+    const choiceButtons = productModal.querySelectorAll('[data-weight], [data-brew]');
+    const closeButton = productModal.querySelector('.modal-close');
+    let activeProduct = null;
+    let modalTrigger = null;
+    let modalScrollY = 0;
+    let selectedWeight = '50';
+    let selectedBrew = 'teapot';
+
+    function brewNote() {
+        const amount = selectedWeight === '100' ? 100 : 50;
+        const note = brewNotes[selectedBrew][activeProduct.category] || brewNotes[selectedBrew].blends;
+        const tail = note.tail || 'хватит примерно на ' + Math.max(1, Math.round(amount / note.per)) + ' ' + note.unit;
+        return note.text + ' Пачки ' + amount + ' г ' + tail + '.';
+    }
+
+    function updateModalDetails() {
+        const heavy = selectedWeight === '100';
+        modalText.textContent = heavy ? activeProduct.stockText : activeProduct.lead;
+        modalBrewText.textContent = brewNote();
+        modalPrice.textContent = packPrices[selectedWeight] + ' BYN';
+        choiceButtons.forEach(function (button) {
+            const isOn = button.dataset.weight
+                ? button.dataset.weight === selectedWeight
+                : button.dataset.brew === selectedBrew;
+            button.classList.toggle('is-active', isOn);
+            button.setAttribute('aria-pressed', String(isOn));
+        });
+    }
+
+    function lockScroll() {
+        const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+        modalScrollY = window.scrollY;
+        document.body.style.top = '-' + modalScrollY + 'px';
+        document.body.style.paddingRight = scrollbarWidth > 0 ? scrollbarWidth + 'px' : '';
+        document.documentElement.classList.add('modal-open');
+        document.body.classList.add('modal-open');
+    }
+
+    function unlockScroll() {
+        document.documentElement.classList.remove('modal-open');
+        document.body.classList.remove('modal-open');
+        document.body.style.top = '';
+        document.body.style.paddingRight = '';
+        document.documentElement.style.scrollBehavior = 'auto';
+        window.scrollTo(0, modalScrollY);
+        document.documentElement.style.scrollBehavior = '';
+    }
+
+    openProductModal = function (product, trigger) {
+        activeProduct = product;
+        modalTrigger = trigger || null;
+        selectedWeight = product.size;
+        selectedBrew = product.brew;
+        modalImage.src = product.image;
+        modalImage.alt = product.alt;
+        modalEyebrow.textContent = categoryLabels[product.category] || 'Каталог';
+        modalTitle.textContent = product.name;
+        updateModalDetails();
+        lockScroll();
+        productModal.hidden = false;
+        closeButton.focus({ preventScroll: true });
+    };
+
+    closeProductModal = function () {
+        if (productModal.hidden) {
+            return false;
+        }
+        productModal.hidden = true;
+        unlockScroll();
+        if (modalTrigger && modalTrigger.isConnected) {
+            modalTrigger.focus({ preventScroll: true });
+        }
+        modalTrigger = null;
+        return true;
+    };
+
+    productModal.querySelector('.modal-backdrop').addEventListener('click', closeProductModal);
+    closeButton.addEventListener('click', closeProductModal);
+
+    productModal.addEventListener('keydown', function (event) {
+        if (event.key !== 'Tab') {
+            return;
+        }
+        const focusable = productModal.querySelectorAll('button:not([disabled])');
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+        }
+    });
+
+    productModal.querySelector('.modal-options').addEventListener('click', function (event) {
+        const button = event.target.closest('[data-weight], [data-brew]');
+        if (!button || !activeProduct) {
+            return;
+        }
+        if (button.dataset.weight) {
+            selectedWeight = button.dataset.weight;
+        } else {
+            selectedBrew = button.dataset.brew;
+        }
+        updateModalDetails();
+    });
+}
 
 function createProductCard(product) {
-    const card = document.createElement('article');
-    card.className = 'product-card';
+    const card = createElement('article', 'product-card');
 
-    const img = document.createElement('img');
+    const img = createElement('img');
     img.src = product.image;
     img.alt = product.alt;
+    img.loading = 'lazy';
+    img.decoding = 'async';
 
-    const body = document.createElement('div');
-    body.className = 'product-card-body';
+    const body = createElement('div', 'product-card-body');
+    const meta = createElement('div', 'product-card-meta');
+    meta.appendChild(createElement('span', 'product-card-weight', product.size + ' г'));
+    meta.appendChild(createElement('span', 'product-card-price', product.price + ' BYN'));
 
-    const title = document.createElement('h3');
-    title.textContent = product.name;
-
-    const text = document.createElement('p');
-    text.textContent = product.text;
-
-    const meta = document.createElement('div');
-    meta.className = 'product-card-meta';
-
-    const weight = document.createElement('span');
-    weight.className = 'product-card-weight';
-    weight.textContent = product.weight;
-
-    const price = document.createElement('span');
-    price.className = 'product-card-price';
-    price.textContent = product.price + ' BYN';
-
-    const button = document.createElement('button');
-    button.className = 'btn btn-primary product-card-cart';
+    const button = createElement('button', 'btn btn-primary product-card-cart', 'Подробнее');
     button.type = 'button';
-    button.textContent = 'В корзину';
+    button.setAttribute('aria-haspopup', 'dialog');
 
-    meta.appendChild(weight);
-    meta.appendChild(price);
-    body.appendChild(title);
-    body.appendChild(text);
+    body.appendChild(createElement('h3', '', product.name));
+    body.appendChild(createElement('p', '', product.text));
     body.appendChild(meta);
     body.appendChild(button);
     card.appendChild(img);
     card.appendChild(body);
     return card;
 }
-
 const catalog = document.querySelector('.catalog');
-
-if (catalog) {
+const grid = catalog && catalog.querySelector('.catalog-grid');
+if (grid) {
     const tabs = catalog.querySelectorAll('.catalog-tab');
-    const grid = catalog.querySelector('.catalog-grid');
     const moreButton = catalog.querySelector('.catalog-more');
     const pageSize = 8;
+    const productsByCategory = {};
+    const cardProducts = new WeakMap();
     let activeCategory = 'blends';
     let visibleCount = 0;
 
-    function categoryProducts() {
-        return catalogProducts.filter(function (product) {
-            return product.category === activeCategory;
-        });
-    }
+    catalogProducts.forEach(function (product) {
+        (productsByCategory[product.category] = productsByCategory[product.category] || []).push(product);
+    });
 
     function renderCatalog(reset) {
-        if (!grid) {
-            return;
-        }
-
-        const products = categoryProducts();
-
+        const products = productsByCategory[activeCategory] || [];
+        const fragment = document.createDocumentFragment();
         if (reset) {
             visibleCount = 0;
             grid.replaceChildren();
         }
-
         products.slice(visibleCount, visibleCount + pageSize).forEach(function (product) {
-            grid.appendChild(createProductCard(product));
+            const card = createProductCard(product);
+            cardProducts.set(card, product);
+            fragment.appendChild(card);
         });
 
+        const firstNewButton = fragment.querySelector('.product-card-cart');
+        grid.appendChild(fragment);
         visibleCount = Math.min(visibleCount + pageSize, products.length);
-
         if (moreButton) {
             const hasMore = visibleCount < products.length;
             moreButton.hidden = !hasMore;
-            moreButton.textContent = hasMore
-                ? 'Показать ещё ' + Math.min(pageSize, products.length - visibleCount)
-                : 'Показать ещё';
+            moreButton.textContent = 'Показать ещё ' + Math.min(pageSize, products.length - visibleCount);
         }
-
-        tabs.forEach(function (tab) {
-            const isActive = tab.dataset.category === activeCategory;
-            tab.classList.toggle('is-active', isActive);
-            tab.setAttribute('aria-pressed', String(isActive));
-        });
+        return firstNewButton;
     }
+
+    grid.addEventListener('click', function (event) {
+        const card = event.target.closest('.product-card');
+        if (card && cardProducts.has(card)) {
+            openProductModal(cardProducts.get(card), card.querySelector('.product-card-cart'));
+        }
+    });
 
     tabs.forEach(function (tab) {
         tab.addEventListener('click', function () {
             if (tab.dataset.category === activeCategory) {
                 return;
             }
-
             activeCategory = tab.dataset.category;
+            tabs.forEach(function (item) {
+                const isActive = item === tab;
+                item.classList.toggle('is-active', isActive);
+                item.setAttribute('aria-pressed', String(isActive));
+            });
             renderCatalog(true);
         });
     });
 
     if (moreButton) {
         moreButton.addEventListener('click', function () {
-            renderCatalog(false);
+            const firstNewButton = renderCatalog(false);
+            if (moreButton.hidden && firstNewButton) {
+                firstNewButton.focus();
+            }
         });
     }
-
     renderCatalog(true);
 }
