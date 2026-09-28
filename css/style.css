@@ -25,7 +25,8 @@ body {
 html:has(body.menu-open),
 body.menu-open,
 html.modal-open,
-body.modal-open {
+body.modal-open,
+body.cart-open {
     overflow: hidden;
 }
 
@@ -206,6 +207,17 @@ p {
     line-height: 1.125rem;
     text-align: center;
 }
+
+.cart-toggle.is-pulse {
+    animation: cart-pulse 0.45s ease;
+}
+
+@keyframes cart-pulse {
+    50% {
+        transform: scale(1.12);
+    }
+}
+
 .theme-toggle {
     width: 4rem;
     height: 2.125rem;
@@ -1092,6 +1104,210 @@ section {
     flex-wrap: wrap;
     gap: 0.75rem;
     margin-bottom: 2rem;
+}
+
+.cart-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 35;
+    background: rgba(32, 24, 38, 0.4);
+}
+
+.cart {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    right: 0;
+    z-index: 40;
+    width: min(26.25rem, 100%);
+    height: 100%;
+    background: #ffffff;
+    border-left: 0.0625rem solid #e6dfd4;
+    box-shadow: 0 0.75rem 2rem rgba(93, 77, 122, 0.12);
+    transform: translateX(100%);
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.35s ease, visibility 0s linear 0.35s;
+}
+
+.cart.is-open {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+    transition: transform 0.35s ease, visibility 0s;
+}
+
+.cart-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 0.0625rem solid #e6dfd4;
+}
+
+.cart-head h2 {
+    margin: 0;
+    font-family: "Playfair Display", "Times New Roman", serif;
+    font-size: 1.75rem;
+    color: #5d4d7a;
+}
+
+.cart-close {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.75rem;
+    font-size: 1.75rem;
+    line-height: 1;
+    color: #5d4d7a;
+}
+
+.cart-close:hover {
+    background: #e8e0f0;
+}
+
+.cart-list {
+    display: grid;
+    flex-grow: 1;
+    align-content: start;
+    list-style: none;
+    gap: 0.875rem;
+    margin: 0;
+    padding: 1rem 1.5rem;
+    overflow: auto;
+}
+
+.cart-empty {
+    margin: 0;
+    padding: 2rem 1.5rem;
+    color: #6b645c;
+}
+
+.cart-item {
+    display: grid;
+    grid-template-columns: 4rem 1fr auto;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.cart-item img {
+    width: 4rem;
+    height: 4rem;
+    object-fit: cover;
+    border-radius: 0.875rem;
+}
+
+.cart-item b {
+    display: block;
+    font-size: 0.9375rem;
+    color: #5d4d7a;
+}
+
+.cart-item span {
+    display: block;
+    color: #6b645c;
+    font-size: 0.8125rem;
+}
+
+.cart-qty {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-top: 0.5rem;
+}
+
+.cart-qty button {
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 0.5rem;
+    background: #f3eee6;
+    color: #5d4d7a;
+    font-weight: 700;
+}
+
+.cart-qty button:hover:not(:disabled) {
+    background: #e8e0f0;
+}
+
+.cart-qty button:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+.cart-qty span {
+    display: inline-block;
+    min-width: 1.2em;
+    text-align: center;
+    color: #3f3a36;
+    font-weight: 700;
+}
+
+.cart-remove {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    color: #6b645c;
+    font-size: 1.25rem;
+    align-self: start;
+}
+
+.cart-remove:hover {
+    background: #e8e0f0;
+    color: #5d4d7a;
+}
+
+.cart-footer {
+    display: grid;
+    gap: 0.75rem;
+    padding: 1.25rem 1.5rem 1.75rem;
+    border-top: 0.0625rem solid #e6dfd4;
+}
+
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+}
+
+.cart-total b {
+    color: #3d6b4a;
+    font-size: 1.25rem;
+}
+
+.cart-hint {
+    margin: 0;
+    color: #6b645c;
+    font-size: 0.8125rem;
+}
+
+.cart-telegram {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0.75rem 1.75rem;
+    border-radius: 100rem;
+    border: 0.0625rem solid #e6dfd4;
+    color: #5d4d7a;
+    font-weight: 600;
+}
+
+.cart-telegram:hover {
+    background: #e8e0f0;
+    color: #4a3c64;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cart-toggle.is-pulse {
+        animation: none;
+    }
+
+    .cart,
+    .cart.is-open {
+        transition: none;
+    }
 }
 
 .catalog-tab {

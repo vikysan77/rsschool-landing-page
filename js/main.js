@@ -26,6 +26,407 @@ document.querySelectorAll('.theme-toggle').forEach(function (button) {
     });
 });
 
+const CART_KEY = 'travnik-cart';
+const CART_MAX_QTY = 99;
+const cartPanel = document.getElementById('cart');
+const cartBackdrop = document.getElementById('cart-backdrop');
+const cartList = document.getElementById('cart-list');
+const cartEmpty = document.getElementById('cart-empty');
+const cartFooter = document.getElementById('cart-footer');
+const cartTotal = document.getElementById('cart-total');
+const cartStatus = document.getElementById('cart-status');
+const cartClose = document.querySelector('.cart-close');
+const cartToggles = document.querySelectorAll('.cart-toggle');
+let cart = [];
+let cartTrigger = null;
+let cartStorageOk = true;
+
+function normalizeCartItem(item) {
+    const price = Number(item && item.price);
+    const qty = Math.floor(Number(item && item.qty));
+
+    if (!item || typeof item.id !== 'string' || !item.id || !isFinite(price) || price < 0 || !isFinite(qty) || qty < 1) {
+        return null;
+    }
+
+    return {
+        id: item.id,
+        name: String(item.name || 'Травяной сбор'),
+        note: String(item.note || ''),
+        price: price,
+        image: String(item.image || ''),
+        weight: String(item.weight || '50 г'),
+        qty: Math.min(qty, CART_MAX_QTY)
+    };
+}
+
+function loadCart() {
+    try {
+        const data = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+        const seen = {};
+
+        cart = (Array.isArray(data) ? data : []).map(normalizeCartItem).filter(function (item) {
+            if (!item || seen[item.id]) {
+                return false;
+            }
+
+            seen[item.id] = true;
+            return true;
+        });
+    } catch (error) {
+        cart = [];
+    }
+}
+
+function saveCart() {
+    try {
+        localStorage.setItem(CART_KEY, JSON.stringify(cart));
+        cartStorageOk = true;
+    } catch (error) {
+        cartStorageOk = false;
+    }
+
+    renderCart();
+}
+
+function cartQty() {
+    return cart.reduce(function (sum, item) {
+        return sum + item.qty;
+    }, 0);
+}
+
+function cartItem(id) {
+    return cart.filter(function (item) {
+        return item.id === id;
+    })[0];
+}
+
+function setCartQty(id, qty) {
+    const next = [];
+
+    cart.forEach(function (item) {
+        if (item.id !== id) {
+            next.push(item);
+            return;
+        }
+
+        item.qty = Math.min(qty, CART_MAX_QTY);
+
+        if (item.qty > 0) {
+            next.push(item);
+        }
+    });
+
+    cart = next;
+    saveCart();
+}
+
+function formatPrice(value) {
+    return (Math.round(value * 100) / 100) + ' BYN';
+}
+
+function announceCart(message) {
+    if (!cartStatus) {
+        return;
+    }
+
+    cartStatus.textContent = '';
+    setTimeout(function () {
+        cartStatus.textContent = message;
+    }, 50);
+}
+
+function isCartOpen() {
+    return Boolean(cartPanel && cartPanel.classList.contains('is-open'));
+}
+
+function updateCartToggles() {
+    const count = cartQty();
+    const open = isCartOpen();
+
+    cartToggles.forEach(function (button) {
+        const badge = button.querySelector('.cart-toggle-count');
+
+        button.setAttribute('aria-expanded', String(open));
+        button.setAttribute(
+            'aria-label',
+            (open ? 'Закрыть корзину' : 'Открыть корзину') + (count ? ', товаров: ' + count : ', пусто')
+        );
+
+        if (badge) {
+            badge.hidden = count === 0;
+            badge.textContent = count > CART_MAX_QTY ? CART_MAX_QTY + '+' : String(count);
+        }
+    });
+}
+
+function setCartPanel(open) {
+    cartPanel.classList.toggle('is-open', open);
+    cartPanel.setAttribute('aria-hidden', String(!open));
+
+    if (cartBackdrop) {
+        cartBackdrop.hidden = !open;
+    }
+
+    document.body.classList.toggle('cart-open', open);
+    updateCartToggles();
+}
+
+function openCart() {
+    if (!cartPanel || isCartOpen()) {
+        return;
+    }
+
+    closeMenu();
+    cartTrigger = document.activeElement;
+    setCartPanel(true);
+
+    if (cartClose) {
+        cartClose.focus({ preventScroll: true });
+    }
+}
+
+function closeCart() {
+    if (!isCartOpen()) {
+        return false;
+    }
+
+    const focusInside = cartPanel.contains(document.activeElement);
+
+    setCartPanel(false);
+
+    if (focusInside && cartTrigger && cartTrigger.isConnected) {
+        cartTrigger.focus({ preventScroll: true });
+    }
+
+    cartTrigger = null;
+    return true;
+}
+
+function addToCart(product) {
+    const item = normalizeCartItem({
+        id: product && product.id,
+        name: product && product.name,
+        note: product && product.note,
+        price: product && product.price,
+        image: product && product.image,
+        weight: product && product.weight,
+        qty: 1
+    });
+
+    if (!item) {
+        return;
+    }
+
+    const found = cartItem(item.id);
+
+    if (found) {
+        if (found.qty >= CART_MAX_QTY) {
+            announceCart('В корзине уже максимум: ' + CART_MAX_QTY + ' шт. «' + found.name + '»');
+            return;
+        }
+
+        found.qty += 1;
+    } else {
+        cart.push(item);
+    }
+
+    saveCart();
+    announceCart('«' + product.name + '» добавлен в корзину. Товаров: ' + cartQty());
+    cartToggles.forEach(function (button) {
+        button.classList.remove('is-pulse');
+        void button.offsetWidth;
+        button.classList.add('is-pulse');
+    });
+}
+
+function cartButton(className, label, text, action, id) {
+    const button = createElement('button', className, text);
+    button.type = 'button';
+    button.dataset.action = action;
+    button.dataset.id = id;
+    button.setAttribute('aria-label', label);
+    return button;
+}
+
+function renderCart() {
+    updateCartToggles();
+
+    if (!cartList) {
+        return;
+    }
+
+    const active = document.activeElement;
+    const focusAction = active && cartList.contains(active) ? active.dataset.action : null;
+    const focusId = focusAction ? active.dataset.id : null;
+    const focusIndex = focusAction
+        ? Array.prototype.indexOf.call(cartList.children, active.closest('.cart-item'))
+        : -1;
+
+    cartList.replaceChildren();
+
+    cart.forEach(function (item) {
+        const row = createElement('li', 'cart-item');
+        const img = createElement('img');
+        const info = document.createElement('div');
+        const qtyBox = createElement('div', 'cart-qty');
+        const plus = cartButton('', 'Увеличить количество «' + item.name + '»', '+', 'plus', item.id);
+        const priceLabel = item.qty > 1
+            ? item.price + ' × ' + item.qty + ' = ' + formatPrice(item.price * item.qty)
+            : formatPrice(item.price);
+
+        img.src = item.image;
+        img.alt = '';
+        plus.disabled = item.qty >= CART_MAX_QTY;
+        qtyBox.setAttribute('role', 'group');
+        qtyBox.setAttribute('aria-label', 'Количество «' + item.name + '»');
+        qtyBox.appendChild(cartButton('', 'Уменьшить количество «' + item.name + '»', '−', 'minus', item.id));
+        qtyBox.appendChild(createElement('span', '', String(item.qty)));
+        qtyBox.appendChild(plus);
+        info.appendChild(createElement('b', '', item.name));
+        info.appendChild(createElement('span', '', item.weight + ' · ' + priceLabel));
+        info.appendChild(qtyBox);
+        row.appendChild(img);
+        row.appendChild(info);
+        row.appendChild(cartButton('cart-remove', 'Удалить «' + item.name + '» из корзины', '×', 'remove', item.id));
+        cartList.appendChild(row);
+    });
+
+    if (focusAction) {
+        restoreCartFocus(focusAction, focusId, focusIndex);
+    }
+
+    if (cartEmpty) {
+        cartEmpty.hidden = cart.length > 0;
+    }
+
+    if (cartFooter) {
+        cartFooter.hidden = cart.length === 0;
+    }
+
+    if (cartTotal) {
+        cartTotal.textContent = formatPrice(cart.reduce(function (sum, item) {
+            return sum + item.price * item.qty;
+        }, 0));
+    }
+}
+
+function cartControl(selector, id, action) {
+    return Array.prototype.filter.call(cartList.querySelectorAll(selector), function (button) {
+        return button.dataset.id === id && (!action || button.dataset.action === action) && !button.disabled;
+    })[0];
+}
+
+function restoreCartFocus(action, id, index) {
+    const rows = cartList.children;
+    const row = rows[Math.min(index, rows.length - 1)];
+    const target = cartControl('button', id, action)
+        || cartControl('.cart-remove', id)
+        || (row && row.querySelector('.cart-remove'))
+        || cartClose;
+
+    if (target) {
+        target.focus({ preventScroll: true });
+    }
+}
+
+if (cartList) {
+    cartList.addEventListener('click', function (event) {
+        const button = event.target.closest('button[data-action]');
+
+        if (!button || button.disabled) {
+            return;
+        }
+
+        const item = cartItem(button.dataset.id);
+        const qty = item ? item.qty : 0;
+
+        if (button.dataset.action === 'plus') {
+            setCartQty(button.dataset.id, qty + 1);
+        } else if (button.dataset.action === 'minus') {
+            setCartQty(button.dataset.id, qty - 1);
+        } else if (button.dataset.action === 'remove') {
+            setCartQty(button.dataset.id, 0);
+        }
+    });
+}
+
+if (cartPanel) {
+    cartPanel.addEventListener('keydown', function (event) {
+        if (event.key !== 'Tab' || !isCartOpen()) {
+            return;
+        }
+
+        const focusable = Array.prototype.filter.call(
+            cartPanel.querySelectorAll('button:not([disabled]), a[href]'),
+            function (el) {
+                return el.offsetParent !== null;
+            }
+        );
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (!first) {
+            return;
+        }
+
+        if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+        }
+    });
+}
+
+window.addEventListener('storage', function (event) {
+    if (cartStorageOk && (event.key === CART_KEY || event.key === null)) {
+        loadCart();
+        renderCart();
+    }
+});
+
+cartToggles.forEach(function (button) {
+    button.addEventListener('click', function () {
+        if (isCartOpen()) {
+            closeCart();
+        } else {
+            openCart();
+        }
+    });
+});
+
+if (cartBackdrop) {
+    cartBackdrop.addEventListener('click', closeCart);
+}
+
+if (cartClose) {
+    cartClose.addEventListener('click', closeCart);
+}
+
+let closeProductModal = function () {
+    return false;
+};
+
+let openProductModal = function () {};
+
+document.addEventListener('keydown', function (event) {
+    if (event.key !== 'Escape') {
+        return;
+    }
+
+    if (closeProductModal()) {
+        event.stopImmediatePropagation();
+        return;
+    }
+
+    closeCart();
+});
+
+loadCart();
+renderCart();
+
 const burger = document.querySelector('.burger');
 const nav = document.querySelector('.nav');
 

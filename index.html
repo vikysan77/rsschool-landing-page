@@ -228,6 +228,25 @@
             </div>
         </section>
     </main>
+    <div class="cart-backdrop" id="cart-backdrop" hidden></div>
+    <aside class="cart" id="cart" aria-hidden="true" aria-labelledby="cart-title">
+        <div class="cart-head">
+            <h2 id="cart-title">Корзина</h2>
+            <button class="cart-close" type="button" aria-label="Закрыть корзину">×</button>
+        </div>
+        <ul class="cart-list" id="cart-list"></ul>
+        <p class="cart-empty" id="cart-empty">Пока пусто. Добавьте свой сбор или готовый купаж из каталога.</p>
+        <div class="cart-footer" id="cart-footer" hidden>
+            <div class="cart-total">
+                <span>Итого</span>
+                <b id="cart-total">0 BYN</b>
+            </div>
+            <p class="cart-hint">Самовывоз в Жодишках, Ратомке и Минске или Белпочта. Чтобы оформить заказ, позвоните или напишите в Telegram.</p>
+            <a class="btn btn-primary" href="tel:+375291327857">Позвонить</a>
+            <a class="cart-telegram" href="https://t.me/viktoryia_po" target="_blank" rel="noopener noreferrer">Написать в Telegram</a>
+        </div>
+    </aside>
+    <p class="visually-hidden" id="cart-status" role="status" aria-live="polite"></p>
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
