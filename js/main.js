@@ -1171,3 +1171,320 @@ if (grid) {
     }
     renderCatalog(true);
 }
+
+const constructor = document.querySelector('.constructor');
+
+if (constructor) {
+    const title = document.getElementById('blend-title');
+    const recipe = document.getElementById('blend-recipe');
+    const chips = document.getElementById('blend-chips');
+    const count = document.getElementById('blend-count');
+    const price = document.getElementById('blend-price');
+    const blendCart = document.getElementById('blend-cart');
+    let currentBlend = null;
+    const groupLimits = { base: 4, action: 5, aroma: 3 };
+
+    function selectedCards(group) {
+        return Array.prototype.slice.call(
+            constructor.querySelectorAll('.herb-card.is-selected[data-group="' + group + '"]')
+        );
+    }
+
+    function hasId(cards, id) {
+        return cards.some(function (card) {
+            return card.dataset.id === id;
+        });
+    }
+
+    function joinRu(items) {
+        if (items.length === 0) {
+            return '';
+        }
+
+        if (items.length === 1) {
+            return items[0];
+        }
+
+        if (items.length === 2) {
+            return items[0] + ' и ' + items[1];
+        }
+
+        return items.slice(0, -1).join(', ') + ' и ' + items[items.length - 1];
+    }
+
+    function ruCount(n, one, few, many) {
+        const mod10 = n % 10;
+        const mod100 = n % 100;
+
+        if (mod10 === 1 && mod100 !== 11) {
+            return n + ' ' + one;
+        }
+
+        if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) {
+            return n + ' ' + few;
+        }
+
+        return n + ' ' + many;
+    }
+
+    function herbWord(n) {
+        return ruCount(n, 'трава', 'травы', 'трав').replace(/^\d+\s/, '');
+    }
+
+    function blendName(bases, actions, aromas, all) {
+        if (all.length === 0) {
+            return 'Пустая чашка';
+        }
+
+        if (all.length === 12) {
+            return 'Полный сад';
+        }
+
+        const knownSets = {
+            'chamomile|cherry|grape|mint|thyme': 'Спокойное утро',
+            'currant-berry|currant-leaf|mint|oregano|thyme': 'Желудочный комфорт',
+            'echinacea|oregano|raspberry-leaf|seabuckthorn|thyme': 'Простуда-стоп!',
+            'chamomile|cherry|currant-berry|currant-leaf|lavender': 'Летнее настроение'
+        };
+        const setKey = all.map(function (card) {
+            return card.dataset.id;
+        }).sort().join('|');
+
+        if (knownSets[setKey]) {
+            return knownSets[setKey];
+        }
+
+        if (bases.length === 1 && actions.length === 1 && aromas.length === 1) {
+            const known = {
+                'grape|chamomile|mint': 'Садовая тишина',
+                'grape|echinacea|lavender': 'Щит сада',
+                'cherry|chamomile|lavender': 'Вишнёвый вечер',
+                'cherry|thyme|mint': 'Тёплый склон',
+                'currant-leaf|oregano|currant-berry': 'Смородина вдвойне',
+                'currant-leaf|seabuckthorn|mint': 'Янтарный сад',
+                'raspberry-leaf|echinacea|lavender': 'Малиновый щит',
+                'raspberry-leaf|chamomile|currant-berry': 'Ягодный покой',
+                'grape|oregano|lavender': 'Полевой букет',
+                'cherry|seabuckthorn|currant-berry': 'Солнечная вишня'
+            };
+            const key = bases[0].dataset.id + '|' + actions[0].dataset.id + '|' + aromas[0].dataset.id;
+
+            if (known[key]) {
+                return known[key];
+            }
+        }
+
+        const calm = hasId(actions, 'chamomile') || hasId(aromas, 'lavender');
+        const shield = hasId(actions, 'echinacea');
+        const warm = hasId(actions, 'thyme') || hasId(actions, 'oregano') || hasId(actions, 'seabuckthorn');
+        const berry = hasId(bases, 'raspberry-leaf') || hasId(bases, 'currant-leaf') || hasId(aromas, 'currant-berry');
+        const fruit = hasId(bases, 'cherry');
+
+        if (all.length >= 8) {
+            return berry ? 'Ягодный травник' : 'Большой травник';
+        }
+
+        if (shield && calm) {
+            return 'Спокойный щит';
+        }
+
+        if (shield) {
+            return fruit ? 'Вишнёвый щит' : 'Щит сада';
+        }
+
+        if (calm && berry) {
+            return 'Ягодный покой';
+        }
+
+        if (calm && fruit) {
+            return 'Вишнёвый вечер';
+        }
+
+        if (warm && fruit) {
+            return 'Тёплый склон';
+        }
+
+        if (warm) {
+            return 'Тёплый сад';
+        }
+
+        if (berry) {
+            return 'Ягодный сад';
+        }
+
+        if (fruit) {
+            return 'Вишнёвый сад';
+        }
+
+        if (hasId(aromas, 'mint')) {
+            return 'Свежий сад';
+        }
+
+        if (hasId(aromas, 'lavender')) {
+            return 'Лавандовый вечер';
+        }
+
+        if (bases.length && !actions.length && !aromas.length) {
+            return 'Листовой сбор';
+        }
+
+        if (!bases.length && actions.length) {
+            return 'Целебный сбор';
+        }
+
+        if (!bases.length && !actions.length) {
+            return 'Ароматный сбор';
+        }
+
+        return 'Свой травник';
+    }
+
+    function setGroupMeter(group, selected, total) {
+        const label = document.getElementById('blend-n-' + group);
+        const bar = document.getElementById('blend-bar-' + group);
+
+        if (label) {
+            label.textContent = selected + ' из ' + total;
+        }
+
+        if (bar) {
+            bar.style.width = Math.round((selected / total) * 100) + '%';
+        }
+    }
+
+    function renderChips(cards) {
+        if (!chips) {
+            return;
+        }
+
+        chips.replaceChildren();
+
+        cards.forEach(function (card) {
+            const item = document.createElement('li');
+            item.className = 'blend-chip blend-chip-' + card.dataset.group;
+
+            const img = document.createElement('img');
+            img.src = card.dataset.image;
+            img.alt = '';
+
+            const name = document.createElement('span');
+            name.textContent = card.dataset.name;
+
+            const remove = document.createElement('button');
+            remove.className = 'blend-chip-remove';
+            remove.type = 'button';
+            remove.setAttribute('aria-label', 'Убрать «' + card.dataset.name + '» из сбора');
+            remove.textContent = '×';
+            remove.addEventListener('click', function () {
+                setHerbSelected(card, false);
+            });
+
+            item.appendChild(img);
+            item.appendChild(name);
+            item.appendChild(remove);
+            chips.appendChild(item);
+        });
+    }
+
+    function setAddButton(card) {
+        const addButton = card.querySelector('.herb-card-add');
+        const selected = card.classList.contains('is-selected');
+
+        if (!addButton) {
+            return;
+        }
+
+        addButton.setAttribute('aria-pressed', String(selected));
+        addButton.textContent = selected ? 'Убрать' : 'Добавить';
+    }
+
+    function setHerbSelected(card, selected) {
+        card.classList.toggle('is-selected', selected);
+        setAddButton(card);
+        renderBlend();
+    }
+
+    function renderBlend() {
+        const bases = selectedCards('base');
+        const actions = selectedCards('action');
+        const aromas = selectedCards('aroma');
+        const all = bases.concat(actions, aromas);
+
+        if (!title || !recipe) {
+            return;
+        }
+
+        title.textContent = blendName(bases, actions, aromas, all);
+        setGroupMeter('base', bases.length, groupLimits.base);
+        setGroupMeter('action', actions.length, groupLimits.action);
+        setGroupMeter('aroma', aromas.length, groupLimits.aroma);
+        renderChips(all);
+
+        if (all.length === 0) {
+            recipe.textContent = 'Добавьте травы кнопкой «Добавить». Имя сбора сложится само — по характеру чашки, а не списком.';
+            currentBlend = null;
+        } else {
+            currentBlend = {
+                id: 'custom:' + all.map(function (card) {
+
+                    return card.dataset.id;
+                }).join('+'),
+                name: title.textContent + ' · свой сбор',
+                note: recipe.textContent,
+                price: packPrices['50'],
+                image: all[0].dataset.image,
+                weight: '50 г'
+            };
+
+            const parts = [];
+
+            if (bases.length) {
+                parts.push(ruCount(bases.length, 'листовая основа', 'листовые основы', 'листовых основ'));
+            }
+
+            if (actions.length) {
+                parts.push(ruCount(actions.length, 'целебная трава', 'целебные травы', 'целебных трав'));
+            }
+
+            if (aromas.length) {
+                parts.push(ruCount(aromas.length, 'аромат', 'аромата', 'ароматов'));
+            }
+
+            recipe.textContent = 'На чайник: ' + joinRu(parts) + '.';
+        }
+
+        if (count) {
+            all.length === 0 ? count.textContent = '0 трав в сборе · 0 г' : count.textContent = all.length + ' ' + herbWord(all.length) + ' в сборе · 50 г';
+        }
+
+        if (price) {
+            all.length === 0 ? price.textContent = '0 BYN' : price.textContent = packPrices['50'] + ' BYN';
+        }
+
+        if (blendCart) {
+            blendCart.disabled = !currentBlend;
+        }
+    }
+
+    constructor.querySelectorAll('.herb-card').forEach(function (card) {
+        const addButton = card.querySelector('.herb-card-add');
+
+        if (!addButton) {
+            return;
+        }
+
+        addButton.addEventListener('click', function () {
+            setHerbSelected(card, !card.classList.contains('is-selected'));
+        });
+
+        setAddButton(card);
+    });
+
+    renderBlend();
+
+    if (blendCart) {
+        blendCart.addEventListener('click', function () {
+            addToCart(currentBlend);
+        });
+    }
+}
