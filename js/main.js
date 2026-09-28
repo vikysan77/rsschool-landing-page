@@ -819,6 +819,7 @@ const herbItems = [
         category: 'base',
         name: 'Листья винограда',
         text: 'База сбора. Две части на чайник — мягкая терпкая основа.',
+        cardText: 'Мягкая, чуть терпкая основа. Делает чай округлым и спокойным.',
         stockText: 'База на запас. Мягкой терпкой основы хватит на несколько недель.',
         image: 'assets/images/grape-leaves.png',
         alt: 'Свежие и сушёные листья винограда'
@@ -828,6 +829,7 @@ const herbItems = [
         category: 'base',
         name: 'Листья вишни',
         text: 'База сбора. Две части дают тёплый фруктовый тон.',
+        cardText: 'Тёплый фруктовый тон. Хорошая база для вечерних сборов.',
         stockText: 'База на запас. Тёплого фруктового тона хватит на много заварок.',
         image: 'assets/images/cherry-leaves.png',
         alt: 'Свежие и сушёные листья вишни'
@@ -837,6 +839,7 @@ const herbItems = [
         category: 'base',
         name: 'Листья смородины',
         text: 'База сбора. Две части — насыщенный садовый вкус.',
+        cardText: 'Насыщенный садовый вкус. Самая характерная белорусская основа.',
         stockText: 'База на запас. Насыщенный садовый вкус в большой пачке.',
         image: 'assets/images/currant-leaves.png',
         alt: 'Свежие и сушёные листья чёрной смородины'
@@ -846,6 +849,7 @@ const herbItems = [
         category: 'base',
         name: 'Листья малины',
         text: 'База сбора. Две части мягкой ягодной основы.',
+        cardText: 'Мягкая ягодная база. Хорошо держит целебные и ароматные травы.',
         stockText: 'База на запас. Мягкая ягодная основа на много чашек.',
         image: 'assets/images/raspberry-leaves.png',
         alt: 'Свежие и сушёные листья малины'
@@ -855,6 +859,7 @@ const herbItems = [
         category: 'action',
         name: 'Ромашка',
         text: 'Целебная трава. Одна часть успокаивает и смягчает сбор.',
+        cardText: 'Успокаивает и смягчает. Для вечера и спокойного дыхания.',
         stockText: 'Целебная трава на запас. Одна часть по-прежнему успокаивает сбор.',
         image: 'assets/images/chamomile.png',
         alt: 'Свежие и сушёные цветки ромашки'
@@ -864,6 +869,7 @@ const herbItems = [
         category: 'action',
         name: 'Эхинацея',
         text: 'Целебная трава. Одна часть для поддержки иммунитета.',
+        cardText: 'Поддерживает иммунитет. Для прохладных дней и смены сезона.',
         stockText: 'Целебная трава на запас. Для поддержки в сезон простуд.',
         image: 'assets/images/echinacea.png',
         alt: 'Свежие и сушёные цветки эхинацеи'
@@ -873,6 +879,7 @@ const herbItems = [
         category: 'action',
         name: 'Облепиха',
         text: 'Целебная ягода. Одна часть даёт витаминную яркость.',
+        cardText: 'Яркая, витаминная, чуть маслянистая. Согревает и тонизирует.',
         stockText: 'Целебная ягода на запас. Витаминная яркость облепихи на много чашек.',
         image: 'assets/images/seabuckthorn-leaves.png',
         alt: 'Свежие и сушёные листья облепихи'
@@ -882,6 +889,7 @@ const herbItems = [
         category: 'action',
         name: 'Душица',
         text: 'Целебная трава. Одна часть согревает и помогает дыханию.',
+        cardText: 'Тёплая, пряная, для дыхания. Классика фермерского травника.',
         stockText: 'Целебная трава на запас. Тёплая душица для дыхания — на много заварок.',
         image: 'assets/images/oregano.png',
         alt: 'Свежая и сушёная душица'
@@ -891,6 +899,7 @@ const herbItems = [
         category: 'action',
         name: 'Чабрец',
         text: 'Целебная трава. Одна часть задаёт сильный согревающий вкус.',
+        cardText: 'Сильный, согревающий вкус. Одна часть задаёт весь характер чая.',
         stockText: 'Целебная трава на запас. Согревающий чабрец, одна часть на чайник.',
         image: 'assets/images/thyme.png',
         alt: 'Свежий и сушёный чабрец'
@@ -900,6 +909,7 @@ const herbItems = [
         category: 'aroma',
         name: 'Мята',
         text: 'Аромат. Только щепотка — иначе перебьёт всю базу.',
+        cardText: 'Холодная свежесть. Достаточно щепотки, чтобы чай зазвучал.',
         stockText: 'Аромат на запас. На чайник всё равно только щепотка мяты.',
         image: 'assets/images/mint.png',
         alt: 'Свежая и сушёная мята'
@@ -908,8 +918,9 @@ const herbItems = [
         id: 'lavender',
         category: 'aroma',
         name: 'Лаванда',
-        text: 'Аромат Hidcote. Щепотка цветочного покоя на чайник.',
-        stockText: 'Аромат Hidcote на запас. Больше щепотки на чайник не нужно.',
+        text: 'Аромат лаванды. Щепотка цветочного покоя на чайник.',
+        cardText: 'Цветочный покой. Много нельзя — аромат очень плотный.',
+        stockText: 'Аромат лаванды на запас. Больше щепотки на чайник не нужно.',
         image: 'assets/images/lavender.png',
         alt: 'Свежая и сушёная лаванда'
     },
@@ -918,6 +929,7 @@ const herbItems = [
         category: 'aroma',
         name: 'Ягоды смородины',
         text: 'Аромат. Щепотка сухих ягод в финале сбора.',
+        cardText: 'Ягодный букет в финале. Щепотка сухих ягод украшает весь сбор.',
         stockText: 'Аромат на запас. Щепотка сухих ягод в финале каждого сбора.',
         image: 'assets/images/currant-berries.png',
         alt: 'Свежие и сушёные ягоды чёрной смородины'
@@ -1100,8 +1112,43 @@ function createProductCard(product) {
     card.appendChild(body);
     return card;
 }
+
+const herbGroupMeta = {
+    base: { badge: '2 части', badgeClass: '' },
+    action: { badge: '1 часть', badgeClass: 'badge-action' },
+    aroma: { badge: 'щепотка', badgeClass: 'badge-aroma' }
+};
+
+function createHerbCard(item) {
+    const meta = herbGroupMeta[item.category];
+    const selected = Boolean(item.selected);
+    const card = createElement('article', selected ? 'herb-card is-selected' : 'herb-card');
+    const img = createElement('img');
+    const body = createElement('div', 'herb-card-body');
+    const button = createElement('button', 'herb-card-add', selected ? 'Убрать' : 'Добавить');
+
+    card.dataset.group = item.category;
+    card.dataset.id = item.id;
+    card.dataset.name = item.name;
+    card.dataset.image = item.image;
+    img.src = item.image;
+    img.alt = item.alt + ' на фоне чашки';
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    button.type = 'button';
+    button.setAttribute('aria-pressed', String(selected));
+    body.appendChild(createElement('span', 'herb-card-badge' + (meta.badgeClass ? ' ' + meta.badgeClass : ''), meta.badge));
+    body.appendChild(createElement('h3', 'herb-card-title', item.name));
+    body.appendChild(createElement('p', 'herb-card-text', item.cardText));
+    body.appendChild(button);
+    card.appendChild(img);
+    card.appendChild(body);
+    return card;
+}
+
 const catalog = document.querySelector('.catalog');
 const grid = catalog && catalog.querySelector('.catalog-grid');
+
 if (grid) {
     const tabs = catalog.querySelectorAll('.catalog-tab');
     const moreButton = catalog.querySelector('.catalog-more');
@@ -1182,7 +1229,29 @@ if (constructor) {
     const price = document.getElementById('blend-price');
     const blendCart = document.getElementById('blend-cart');
     let currentBlend = null;
-    const groupLimits = { base: 4, action: 5, aroma: 3 };
+    const groupLimits = { base: 0, action: 0, aroma: 0 };
+    const herbGrids = {
+        base: constructor.querySelector('.herb-grid-base'),
+        action: constructor.querySelector('.herb-grid-action'),
+        aroma: constructor.querySelector('.herb-grid-aroma')
+    };
+
+    Object.keys(herbGrids).forEach(function (group) {
+        if (herbGrids[group]) {
+            herbGrids[group].replaceChildren();
+        }
+    });
+
+    herbItems.forEach(function (item) {
+        const grid = herbGrids[item.category];
+
+        if (!grid || !herbGroupMeta[item.category]) {
+            return;
+        }
+
+        grid.appendChild(createHerbCard(item));
+        groupLimits[item.category] += 1;
+    });
 
     function selectedCards(group) {
         return Array.prototype.slice.call(
@@ -1236,7 +1305,7 @@ if (constructor) {
             return 'Пустая чашка';
         }
 
-        if (all.length === 12) {
+        if (all.length === groupLimits.base + groupLimits.action + groupLimits.aroma && all.length > 0) {
             return 'Полный сад';
         }
 
@@ -1348,7 +1417,7 @@ if (constructor) {
         }
 
         if (bar) {
-            bar.style.width = Math.round((selected / total) * 100) + '%';
+            bar.style.width = (total ? Math.round((selected / total) * 100) : 0) + '%';
         }
     }
 
