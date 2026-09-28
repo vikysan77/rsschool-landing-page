@@ -136,6 +136,27 @@ function announceCart(message) {
     }, 50);
 }
 
+let cartToastTimer = null;
+function showCartToast(message) {
+    let toast = document.getElementById('cart-toast');
+    if (!toast) {
+        toast = createElement('div', 'cart-toast');
+        toast.id = 'cart-toast';
+        toast.setAttribute('aria-hidden', 'true');
+        toast.appendChild(createElement('span', 'cart-toast-mark', '✓'));
+        toast.appendChild(createElement('span', 'cart-toast-text'));
+        document.body.appendChild(toast);
+    }
+    toast.querySelector('.cart-toast-text').textContent = message;
+    toast.classList.remove('is-visible');
+    void toast.offsetWidth;
+    toast.classList.add('is-visible');
+    clearTimeout(cartToastTimer);
+    cartToastTimer = setTimeout(function () {
+        toast.classList.remove('is-visible');
+    }, 3200);
+}
+
 function isCartOpen() {
     return Boolean(cartPanel && cartPanel.classList.contains('is-open'));
 }
@@ -233,6 +254,7 @@ function addToCart(product) {
 
     saveCart();
     announceCart('«' + product.name + '» добавлен в корзину. Товаров: ' + cartQty());
+    showCartToast('Товар «' + item.name + '» добавлен в корзину');
     cartToggles.forEach(function (button) {
         button.classList.remove('is-pulse');
         void button.offsetWidth;
@@ -956,6 +978,7 @@ if (productModal) {
     const modalText = document.getElementById('modal-text');
     const modalBrewText = document.getElementById('modal-brew-text');
     const modalPrice = document.getElementById('modal-price');
+    const modalCart = document.getElementById('modal-cart');
     const categoryLabels = {
         blends: 'Купаж',
         base: 'База',
@@ -988,14 +1011,17 @@ if (productModal) {
         const amount = selectedWeight === '100' ? 100 : 50;
         const note = brewNotes[selectedBrew][activeProduct.category] || brewNotes[selectedBrew].blends;
         const tail = note.tail || 'хватит примерно на ' + Math.max(1, Math.round(amount / note.per)) + ' ' + note.unit;
+
         return note.text + ' Пачки ' + amount + ' г ' + tail + '.';
     }
 
     function updateModalDetails() {
         const heavy = selectedWeight === '100';
+
         modalText.textContent = heavy ? activeProduct.stockText : activeProduct.lead;
         modalBrewText.textContent = brewNote();
         modalPrice.textContent = packPrices[selectedWeight] + ' BYN';
+
         choiceButtons.forEach(function (button) {
             const isOn = button.dataset.weight
                 ? button.dataset.weight === selectedWeight
@@ -1043,8 +1069,10 @@ if (productModal) {
         if (productModal.hidden) {
             return false;
         }
+
         productModal.hidden = true;
         unlockScroll();
+
         if (modalTrigger && modalTrigger.isConnected) {
             modalTrigger.focus({ preventScroll: true });
         }
@@ -1083,6 +1111,27 @@ if (productModal) {
             selectedBrew = button.dataset.brew;
         }
         updateModalDetails();
+    });
+
+    modalCart.addEventListener('click', function () {
+        if (!activeProduct) {
+            return;
+        }
+
+        const heavy = selectedWeight === '100';
+        const id = heavy || activeProduct.category !== 'blends'
+            ? activeProduct.id + '-' + selectedWeight
+            : activeProduct.id;
+
+        addToCart({
+            id: 'catalog:' + id,
+            name: heavy ? activeProduct.name + ', 100 г' : activeProduct.name,
+            note: heavy ? activeProduct.stockText : activeProduct.lead,
+            price: packPrices[selectedWeight],
+            image: activeProduct.image,
+            weight: selectedWeight + ' г'
+        });
+        closeProductModal();
     });
 }
 
